@@ -1,0 +1,11 @@
+{
+  "note": "Text-only asset metadata placeholders for Office Worker Rush.",
+  "sprites": [
+    { "id": "player", "type": "rect", "color": "#1e90ff", "description": "Office worker" },
+    { "id": "fileStack", "type": "rect", "color": "#e67e22", "description": "Must jump over" },
+    { "id": "boss", "type": "rect", "color": "#2f3542", "description": "Must switch lane" },
+    { "id": "coworker", "type": "rect", "color": "#8e44ad", "description": "Must slide under" },
+    { "id": "coffee", "type": "circle", "color": "#6f4e37", "description": "Speed boost" },
+    { "id": "metroCard", "type": "circle", "color": "#00b894", "description": "Invincible" }
+  ]
+}
