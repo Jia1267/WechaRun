@@ -4,7 +4,6 @@ const PowerUpSystem = require('./powerup');
 const UI = require('./ui');
 const InputHandler = require('./input');
 const AdManager = require('./adManager');
-const CityBackground = require('./cityBackground');
 const { safeStorageGetNumber } = require('./utils');
 
 // Canvas setup
@@ -36,7 +35,9 @@ class Game {
     this.obstacles = new ObstacleSystem(this.laneCenters, this.width, this.groundY);
     this.powerups = new PowerUpSystem(this.laneCenters, this.width, this.groundY);
     this.ui = new UI(this.width, this.height);
+
     this.cityBackground = new CityBackground(this.width, this.height, this.groundY);
+
     this.input = new InputHandler();
     this.adManager = new AdManager();
 
@@ -51,6 +52,7 @@ class Game {
 
     this.elapsedTime = 0;
     this.lastTimestamp = 0;
+    this.roadOffset = 0;
 
     this.bindInput();
     this.loop = this.loop.bind(this);
@@ -104,7 +106,7 @@ class Game {
     this.score = 0;
     this.elapsedTime = 0;
     this.speedLevel = 1;
-    this.cityBackground.reset();
+    this.roadOffset = 0;
 
     this.adManager.hideBanner();
   }
@@ -130,7 +132,7 @@ class Game {
     const speedPxPerSecond = this.currentSpeed();
     const moveDistance = speedPxPerSecond * (deltaTime / 1000);
 
-    this.cityBackground.update(deltaTime, speedPxPerSecond);
+    this.roadOffset = (this.roadOffset + moveDistance * 0.8) % 560;
 
     this.obstacles.update(deltaTime, moveDistance, this.speedLevel);
     this.powerups.update(deltaTime, moveDistance);
@@ -171,9 +173,7 @@ class Game {
   render() {
     ctx.clearRect(0, 0, this.width, this.height);
 
-    this.cityBackground.drawSideBackgrounds(ctx);
-    this.cityBackground.drawLandmarks(ctx);
-    this.cityBackground.drawRoad(ctx);
+    this.ui.drawBackground(ctx, this.laneCenters, this.groundY, this.roadOffset);
 
     if (this.state === GAME_STATE.START) {
       this.player.render(ctx);

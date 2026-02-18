@@ -38,6 +38,8 @@
 ├── app.js
 ├── app.json
 ├── cityBackground.js
+=======
+
 ├── game.js
 ├── game.json
 ├── input.js
@@ -49,6 +51,7 @@
 ├── ui.js
 ├── utils.js
 └── assets/
+
     ├── placeholders.json
     └── cities/
         └── beijing/
@@ -57,6 +60,8 @@
             └── landmarks/
                 ├── landmark1.png
                 └── landmark2.png
+=======
+    └── placeholders.json
 ```
 
 > 说明：游戏当前使用 Canvas 直接绘制角色/障碍/道具。`assets/placeholders.json` 仅提供文本占位元数据，方便后续替换为真实素材。
@@ -76,6 +81,7 @@
 - 新增 LandmarkSystem：每隔数秒在左/右侧随机生成地标，从屏幕顶部向下移动，移动速度与当前游戏速度联动，离开屏幕后自动回收。
 - 渲染顺序：左右城市背景 → 地标 → 道路 → 障碍/道具 → 角色 → UI。
 
+ main
 ## 在微信开发者工具中运行
 
 1. 打开 **微信开发者工具**。
