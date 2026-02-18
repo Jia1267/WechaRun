@@ -9,12 +9,30 @@ class Player {
     this.gameHeight = gameHeight;
     this.laneCenters = laneCenters;
 
-    this.width = 64;
-    this.height = 88;
-    this.baseY = gameHeight - 180;
+    // sprite size (you can tune later)
+    this.width = 120;
+    this.height = 160;
+
+    // ground + jump config
+    this.baseY = gameHeight - 180;   // same as your game ground baseline
     this.jumpHeight = 120;
 
+    // load sprite
+    this.spriteReady = false;
+    this.image = wx.createImage();
+    this.image.onload = () => { this.spriteReady = true; };
+    this.image.onerror = (e) => { console.log('[Player] image load error', e); };
+    this.image.src = 'assets/characters/suit_male.png';
+
     this.reset();
+  }
+
+  setSkin(path) {
+    this.spriteReady = false;
+    this.image = wx.createImage();
+    this.image.onload = () => { this.spriteReady = true; };
+    this.image.onerror = (e) => { console.log('[Player] image load error', e); };
+    this.image.src = path;
   }
 
   reset() {
@@ -102,42 +120,43 @@ class Player {
   }
 
   getHitbox() {
-    const bodyHeight = this.isSliding ? this.height * 0.55 : this.height;
-    const yOffset = this.isSliding ? this.height - bodyHeight : 0;
+    const bodyHeight = this.isSliding ? this.height * 0.6 : this.height;
+    const yOffset = this.isSliding ? (this.height - bodyHeight) : 0;
 
     return {
-      x: this.x + 10,
-      y: this.y + yOffset + 6,
-      width: this.width - 20,
-      height: bodyHeight - 12
+      x: this.x + this.width * 0.18,
+      y: this.y + yOffset + this.height * 0.12,
+      width: this.width * 0.64,
+      height: bodyHeight * 0.78
     };
   }
 
   render(ctx) {
     ctx.save();
 
-    // Shadow
+    // Shadow (always on ground)
     ctx.fillStyle = 'rgba(0, 0, 0, 0.22)';
     ctx.beginPath();
-    ctx.ellipse(this.x + this.width / 2, this.baseY + this.height + 4, 22, 8, 0, 0, Math.PI * 2);
+    ctx.ellipse(this.x + this.width / 2, this.baseY + this.height + 8, 26, 9, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Character body
-    const bodyHeight = this.isSliding ? this.height * 0.55 : this.height;
-    const yOffset = this.isSliding ? this.height - bodyHeight : 0;
+    // slide squash effect (optional)
+    const drawH = this.isSliding ? this.height * 0.65 : this.height;
+    const drawY = this.isSliding ? (this.y + (this.height - drawH)) : this.y;
 
-    ctx.fillStyle = this.isInvincible() ? '#6a5acd' : '#1e90ff';
-    ctx.fillRect(this.x, this.y + yOffset, this.width, bodyHeight);
-
-    // Tie
-    ctx.fillStyle = '#ff4757';
-    ctx.fillRect(this.x + this.width / 2 - 4, this.y + yOffset + 12, 8, bodyHeight - 24);
+    // draw sprite (fallback to rectangle if not loaded yet)
+    if (this.spriteReady) {
+      ctx.drawImage(this.image, this.x, drawY, this.width, drawH);
+    } else {
+      ctx.fillStyle = '#1e90ff';
+      ctx.fillRect(this.x, drawY, this.width, drawH);
+    }
 
     // Invincible halo
     if (this.isInvincible()) {
       ctx.strokeStyle = '#ffd700';
       ctx.lineWidth = 4;
-      ctx.strokeRect(this.x - 3, this.y + yOffset - 3, this.width + 6, bodyHeight + 6);
+      ctx.strokeRect(this.x - 3, drawY - 3, this.width + 6, drawH + 6);
     }
 
     ctx.restore();

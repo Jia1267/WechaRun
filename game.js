@@ -156,7 +156,7 @@ class Game {
     this.state = GAME_STATE.GAME_OVER;
 
     if (this.score > this.highScore) {
-      this.highScore = this.score;
+      this.highScore = Math.floor(this.score);
       wx.setStorageSync('officeWorkerRushHighScore', this.highScore);
     }
 
@@ -212,11 +212,11 @@ class Game {
     this.update(deltaTime);
     this.render();
 
-    canvas.requestAnimationFrame(this.loop);
+    requestAnimationFrame(this.loop);
   }
 
   start() {
-    this.loop(0);
+    requestAnimationFrame(this.loop);
   }
 }
 

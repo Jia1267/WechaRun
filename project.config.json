@@ -1,7 +1,8 @@
 {
   "description": "Office Worker Rush - 打工人下班冲刺",
   "packOptions": {
-    "ignore": []
+    "ignore": [],
+    "include": []
   },
   "setting": {
     "urlCheck": false,
@@ -25,11 +26,25 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "compileWorklet": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true
   },
   "compileType": "game",
   "libVersion": "2.33.0",
-  "appid": "touristappid",
+  "appid": "wx6ac3f5090a6b99c5",
   "projectname": "OfficeWorkerRush",
-  "condition": {}
+  "condition": {},
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {},
+  "isGameTourist": true
 }

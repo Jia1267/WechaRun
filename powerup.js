@@ -16,11 +16,11 @@ class PowerUp {
   }
 
   update(deltaDistance) {
-    this.x -= deltaDistance;
+    this.y += deltaDistance;
   }
 
   isOffscreen() {
-    return this.x + this.width < -60;
+    return this.y > this.groundY + 260;
   }
 
   getHitbox() {
@@ -79,7 +79,7 @@ class PowerUpSystem {
     const laneCenterX = this.laneCenters[laneIndex];
     const type = Math.random() < 0.5 ? 'coffee' : 'metroCard';
 
-    this.powerups.push(new PowerUp(type, laneIndex, laneCenterX - 22, this.groundY - 90));
+    this.powerups.push(new PowerUp(type, laneIndex, laneCenterX - 22, -80));
   }
 
   checkCollection(player) {

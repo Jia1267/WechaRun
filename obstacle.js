@@ -22,15 +22,15 @@ class Obstacle {
     this.width = map[type].width;
     this.height = map[type].height;
     this.color = map[type].color;
-    this.y = this.groundY - this.height;
+    this.y = -this.height - 20;
   }
 
   update(deltaDistance) {
-    this.x -= deltaDistance;
+    this.y += deltaDistance;
   }
 
   isOffscreen() {
-    return this.x + this.width < -80;
+    return this.y > this.groundY + 260; 
   }
 
   getHitbox() {

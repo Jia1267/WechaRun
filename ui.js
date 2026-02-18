@@ -80,7 +80,7 @@ class UI {
 
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
-    ctx.font = 'bold 48px sans-serif';
+    ctx.font = 'bold 40px sans-serif';
     ctx.fillText('Office Worker Rush', this.width / 2, 250);
 
     ctx.font = '32px sans-serif';
