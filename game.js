@@ -35,6 +35,9 @@ class Game {
     this.obstacles = new ObstacleSystem(this.laneCenters, this.width, this.groundY);
     this.powerups = new PowerUpSystem(this.laneCenters, this.width, this.groundY);
     this.ui = new UI(this.width, this.height);
+
+    this.cityBackground = new CityBackground(this.width, this.height, this.groundY);
+
     this.input = new InputHandler();
     this.adManager = new AdManager();
 

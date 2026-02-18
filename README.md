@@ -37,6 +37,9 @@
 ├── adManager.js
 ├── app.js
 ├── app.json
+├── cityBackground.js
+=======
+
 ├── game.js
 ├── game.json
 ├── input.js
@@ -48,6 +51,16 @@
 ├── ui.js
 ├── utils.js
 └── assets/
+
+    ├── placeholders.json
+    └── cities/
+        └── beijing/
+            ├── background_left.png
+            ├── background_right.png
+            └── landmarks/
+                ├── landmark1.png
+                └── landmark2.png
+=======
     └── placeholders.json
 ```
 
@@ -60,6 +73,15 @@
 - 运行游戏**不依赖任何图片/音频/字体二进制素材**。
 - `assets/placeholders.json` 仅作为后续接入真实美术资源的文本占位元数据。
 
+
+## 城市侧边背景与地标系统
+
+- 新增 `cityBackground.js`，将屏幕划分为三段：左侧背景（0%-20%）、道路（20%-80%）、右侧背景（80%-100%）。
+- 左右侧可加载北京主题背景图（若图片未加载则自动回退到 Canvas 色块绘制）。
+- 新增 LandmarkSystem：每隔数秒在左/右侧随机生成地标，从屏幕顶部向下移动，移动速度与当前游戏速度联动，离开屏幕后自动回收。
+- 渲染顺序：左右城市背景 → 地标 → 道路 → 障碍/道具 → 角色 → UI。
+
+ main
 ## 在微信开发者工具中运行
 
 1. 打开 **微信开发者工具**。
