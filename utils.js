@@ -9,8 +9,13 @@ function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function rectsOverlap(a, b) {
-  return a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
+function rectsOverlap(a, b, margin = 12) {
+  return !(
+    a.x + a.width - margin < b.x ||
+    a.x + margin > b.x + b.width ||
+    a.y + a.height - margin < b.y ||
+    a.y + margin > b.y + b.height
+  );
 }
 
 function safeStorageGetNumber(key, fallback = 0) {

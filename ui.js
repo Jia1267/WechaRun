@@ -25,54 +25,42 @@ class UI {
     };
   }
 
-  drawBackground(ctx, laneCenters, groundY, distanceLinesOffset) {
-    // Sky and floor
-    const gradient = ctx.createLinearGradient(0, 0, 0, this.height);
-    gradient.addColorStop(0, '#dfe6e9');
-    gradient.addColorStop(0.6, '#ecf0f1');
-    gradient.addColorStop(1, '#bdc3c7');
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, this.width, this.height);
-
-    // Building silhouettes
-    ctx.fillStyle = '#95a5a6';
-    for (let i = 0; i < 8; i += 1) {
-      const w = 40 + (i % 3) * 18;
-      const h = 120 + (i % 4) * 25;
-      ctx.fillRect(i * 58, groundY - h - 20, w, h);
-    }
-
-    // Lanes
+  drawBackground(ctx, roadLeft, roadRight, groundY, offset) {
+    // left city
+    ctx.fillStyle = '#5f6a6a';
+    ctx.fillRect(0, 0, roadLeft, this.height);
+  
+    // right city
+    ctx.fillStyle = '#5f6a6a';
+    ctx.fillRect(roadRight, 0, this.width - roadRight, this.height);
+  
+    // road
     ctx.fillStyle = '#7f8c8d';
-    ctx.fillRect(0, groundY, this.width, this.height - groundY);
-
+    ctx.fillRect(roadLeft, 0, roadRight - roadLeft, this.height);
+  
+    // lane lines (downward moving)
     ctx.strokeStyle = '#ecf0f1';
     ctx.lineWidth = 3;
-    for (let i = -2; i < 9; i += 1) {
-      const y = groundY + ((i * 70 + distanceLinesOffset) % 560);
+    for (let i = -2; i < 14; i++) {
+      const y = ((i * 70 + offset) % 560);
       ctx.beginPath();
-      ctx.moveTo(this.width * 0.22, y);
-      ctx.lineTo(this.width * 0.78, y);
+      ctx.moveTo(roadLeft + 20, y);
+      ctx.lineTo(roadRight - 20, y);
       ctx.stroke();
     }
-
+  
+    // lane borders
     ctx.strokeStyle = '#2c3e50';
     ctx.lineWidth = 2;
+    const laneWidth = (roadRight - roadLeft) / 3;
     ctx.beginPath();
-    ctx.moveTo(this.width * 0.33, groundY);
-    ctx.lineTo(this.width * 0.33, this.height);
-    ctx.moveTo(this.width * 0.67, groundY);
-    ctx.lineTo(this.width * 0.67, this.height);
+    ctx.moveTo(roadLeft + laneWidth, 0);
+    ctx.lineTo(roadLeft + laneWidth, this.height);
+    ctx.moveTo(roadLeft + laneWidth * 2, 0);
+    ctx.lineTo(roadLeft + laneWidth * 2, this.height);
     ctx.stroke();
-
-    // Lane hint dots
-    ctx.fillStyle = 'rgba(255,255,255,0.25)';
-    laneCenters.forEach((x) => {
-      ctx.beginPath();
-      ctx.arc(x, groundY + 28, 7, 0, Math.PI * 2);
-      ctx.fill();
-    });
   }
+  
 
   drawStartScreen(ctx) {
     ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';

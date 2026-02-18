@@ -120,16 +120,16 @@ class Player {
   }
 
   getHitbox() {
-    const bodyHeight = this.isSliding ? this.height * 0.6 : this.height;
-    const yOffset = this.isSliding ? (this.height - bodyHeight) : 0;
-
+    const bodyHeight = this.isSliding ? this.height * 0.50 : this.height * 0.85;
+    const yOffset = this.isSliding ? this.height - bodyHeight : this.height * 0.10;
+  
     return {
-      x: this.x + this.width * 0.18,
-      y: this.y + yOffset + this.height * 0.12,
-      width: this.width * 0.64,
-      height: bodyHeight * 0.78
+      x: this.x + this.width * 0.25,
+      y: this.y + yOffset + this.height * 0.05,
+      width: this.width * 0.50,
+      height: bodyHeight * 0.90
     };
-  }
+  }  
 
   render(ctx) {
     ctx.save();
@@ -164,3 +164,4 @@ class Player {
 }
 
 module.exports = Player;
+

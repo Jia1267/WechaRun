@@ -23,16 +23,23 @@ class Game {
   constructor() {
     this.width = canvas.width;
     this.height = canvas.height;
-    this.groundY = this.height - 180;
+    this.groundY = 0;
+;
+
+    this.roadLeft = this.width * 0.2;
+    this.roadRight = this.width * 0.8;
+
+    const laneWidth = (this.roadRight - this.roadLeft) / 3;
 
     this.laneCenters = [
-      this.width * 0.22,
-      this.width * 0.5,
-      this.width * 0.78
+      this.roadLeft + laneWidth * 0.5,
+      this.roadLeft + laneWidth * 1.5,
+      this.roadLeft + laneWidth * 2.5
     ];
 
+
     this.player = new Player(this.width, this.height, this.laneCenters);
-    this.obstacles = new ObstacleSystem(this.laneCenters, this.width, this.groundY);
+    this.obstacles = new ObstacleSystem(this.laneCenters, this.height);
     this.powerups = new PowerUpSystem(this.laneCenters, this.width, this.groundY);
     this.ui = new UI(this.width, this.height);
     this.input = new InputHandler();
@@ -170,7 +177,8 @@ class Game {
   render() {
     ctx.clearRect(0, 0, this.width, this.height);
 
-    this.ui.drawBackground(ctx, this.laneCenters, this.groundY, this.roadOffset);
+    this.ui.drawBackground(ctx, this.roadLeft, this.roadRight, this.groundY, this.roadOffset);
+
 
     if (this.state === GAME_STATE.START) {
       this.player.render(ctx);
