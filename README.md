@@ -1,5 +1,9 @@
 # Office Worker Rush（打工人下班冲刺）
 
+> **English summary:** A 2D three-lane endless runner built as a WeChat Mini Game in plain JavaScript on the Canvas API, with no game engine and no image assets. It features swipe controls (switch lanes, jump, slide), three obstacle types, power-ups (speed boost and invincibility), difficulty that ramps up over time, a persistent high score, and rewarded-video and banner ad integration.
+>
+> **Tech stack:** JavaScript · WeChat Mini Game API · HTML5 Canvas
+
 一个使用 **WeChat Mini Game Canvas API** + **纯 JavaScript** 开发的 2D 三车道跑酷小游戏。
 
 ## 游戏玩法
